@@ -1,11 +1,10 @@
 #include "matrix.h"
 #include <iostream>
 #include <stdexcept>
-
 // Создание матрицы заданного размера
 Matrix create_matrix(int rows, int cols) {
     if (rows <= 0 || cols <= 0) {
-        throw std::invalid_argument("Matrix dimensions must be positiv e");
+        throw std::invalid_argument("Matrix dimensions must be positive");
     }
     Matrix mat;
     mat.rows = rows;
@@ -16,7 +15,6 @@ Matrix create_matrix(int rows, int cols) {
     }
     return mat;
 }
-
 // Освобождение памяти матрицы
 void free_matrix(Matrix m) {
     if (m.data == nullptr) return;
@@ -25,7 +23,6 @@ void free_matrix(Matrix m) {
     }
     delete[] m.data;
 }
-
 void print_matrix(Matrix m) {
     if (m.data == nullptr) {
         std::cout << "[Empty matrix]" << std::endl;
@@ -40,7 +37,6 @@ void print_matrix(Matrix m) {
         std::cout << "]" << std::endl;
     }
 }
-
 // Сложение двух матриц
 Matrix matrix_add(Matrix a, Matrix b) {
     // Проверка совпадения размеров
@@ -55,12 +51,11 @@ Matrix matrix_add(Matrix a, Matrix b) {
     }
     return result;
 }
-
 // Умножение матриц
 Matrix matrix_multiply(Matrix a, Matrix b) {
     // Проверка совместимости размеров
     if (a.cols != b.rows) {
-        throw std::invalid_argument("Number of columns in A must equal number of rows in B");
+    throw std::invalid_argument("Number of columns in A must equal number of rows in B");
     }
     Matrix result = create_matrix(a.rows, b.cols);
     for (int i = 0; i < a.rows; i++) {
@@ -73,7 +68,6 @@ Matrix matrix_multiply(Matrix a, Matrix b) {
     }
     return result;
 }
-
 // Транспонирование матрицы
 Matrix matrix_transpose(Matrix m) {
     Matrix result = create_matrix(m.cols, m.rows);
@@ -84,7 +78,6 @@ Matrix matrix_transpose(Matrix m) {
     }
     return result;
 }
-
 // Создание матрицы из одномерного массива
 Matrix matrix_from_array(double* data, int rows, int cols) {
     Matrix result = create_matrix(rows, cols);
@@ -94,4 +87,19 @@ Matrix matrix_from_array(double* data, int rows, int cols) {
         }
     }
     return result;
+}
+
+double matrix_sum(Matrix m) {
+    // Проверка на пустую матрицу
+    if (m.data == nullptr || m.rows <= 0 || m.cols <= 0) {
+        return 0.0;
+    }
+    double sum = 0.0;
+    // Суммируем все элементы матрицы
+    for (int i = 0; i < m.rows; i++) {
+        for (int j = 0; j < m.cols; j++) {
+            sum += m.data[i][j];
+        }
+    }
+    return sum;
 }

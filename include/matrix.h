@@ -1,8 +1,8 @@
 #pragma once
 typedef struct {
-double** data;
-int rows;
-int cols;
+    double** data;
+    int rows;
+    int cols;
 } Matrix;
 // Указатель на двумерный массив
 // Количество строк
@@ -16,3 +16,6 @@ Matrix matrix_transpose(Matrix m);
 // Вспомогательные функции
 void print_matrix(Matrix m);
 Matrix matrix_from_array(double* data, int rows, int cols);
+
+// ИНДИВИДУАЛЬНОЕ ЗАДАНИЕ: сумма элементов матрицы
+double matrix_sum(Matrix m);
