@@ -11,4 +11,3 @@ target_link_libraries(matrix_calculator PRIVATE matrix_lib)
 # Тесты
 enable_testing()
 add_subdirectory(tests)
-find_package(GTest REQUIRED)
