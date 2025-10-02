@@ -34,14 +34,9 @@ int main() {
         std::cout << "\nTranspose of A:" << std::endl;
         print_matrix(E);
 
-        // Индивидуальное задание — сумма элементов A (без отдельной функции)
-        double total_sum = 0.0;
-        for (int i = 0; i < A.rows; ++i) {
-            for (int j = 0; j < A.cols; ++j) {
-                total_sum += A.data[i][j];
-            }
-        }
-        std::cout << "\nSum of all elements in matrix A: " << total_sum << std::endl;
+
+        double total_sum = matrix_trace(A);
+        std::cout << "\nSum of diagonal elements: " << total_sum << std::endl;
 
         // Освобождаем память (каждую матрицу только один раз)
         free_matrix(A);

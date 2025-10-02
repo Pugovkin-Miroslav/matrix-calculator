@@ -44,36 +44,43 @@ TEST(MatrixTest, MatrixMultiplication) {
     free_matrix(B);
     free_matrix(C);
 }
-TEST(MatrixTest, MatrixSum) {
-    // Создаем матрицу 2x2: [1, 2]
-    //                     [3, 4]
+TEST(MatrixTest, MatrixTraceSquare) {
     Matrix A = create_matrix(2, 2);
     A.data[0][0] = 1; A.data[0][1] = 2;
     A.data[1][0] = 3; A.data[1][1] = 4;
-    // Проверяем сумму: 1 + 2 + 3 + 4 = 10
-    EXPECT_DOUBLE_EQ(matrix_sum(A), 10.0);
+    // След: 1 + 4 = 5
+    EXPECT_DOUBLE_EQ(matrix_trace(A), 5.0);
     free_matrix(A);
 }
-TEST(MatrixTest, MatrixSumEmpty) {
-    // Тест для "пустой" матрицы - используем небольшую матрицу с нулями
+
+TEST(MatrixTest, MatrixTraceNonSquare) {
+    // Прямоугольная матрица 2x3
+    Matrix A = create_matrix(2, 3);
+    A.data[0][0] = 1; A.data[0][1] = 2; A.data[0][2] = 3;
+    A.data[1][0] = 4; A.data[1][1] = 5; A.data[1][2] = 6;
+    // След: 1 + 5 = 6
+    EXPECT_DOUBLE_EQ(matrix_trace(A), 6.0);
+    free_matrix(A);
+}
+
+TEST(MatrixTest, MatrixTraceSingleElement) {
     Matrix A = create_matrix(1, 1);
-    A.data[0][0] = 0.0;  // Единственный элемент = 0
-    EXPECT_DOUBLE_EQ(matrix_sum(A), 0.0);
+    A.data[0][0] = 5.5;
+    EXPECT_DOUBLE_EQ(matrix_trace(A), 5.5);
     free_matrix(A);
 }
-TEST(MatrixTest, MatrixSumInvalidMatrix) {
-    // Тест на обработку неинициализированной матрицы
+
+TEST(MatrixTest, MatrixTraceEmpty) {
+    Matrix A = create_matrix(1, 1);
+    A.data[0][0] = 0.0;
+    EXPECT_DOUBLE_EQ(matrix_trace(A), 0.0);
+    free_matrix(A);
+}
+
+TEST(MatrixTest, MatrixTraceInvalidMatrix) {
     Matrix A;
     A.data = nullptr;
     A.rows = 0;
     A.cols = 0;
-    EXPECT_DOUBLE_EQ(matrix_sum(A), 0.0);
-    // Не нужно free_matrix - память не выделялась
-}
-TEST(MatrixTest, MatrixSumSingleElement) {
-    // Тест для матрицы 1x1
-    Matrix A = create_matrix(1, 1);
-    A.data[0][0] = 5.5;
-    EXPECT_DOUBLE_EQ(matrix_sum(A), 5.5);
-    free_matrix(A);
+    EXPECT_DOUBLE_EQ(matrix_trace(A), 0.0);
 }

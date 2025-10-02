@@ -89,17 +89,32 @@ Matrix matrix_from_array(double* data, int rows, int cols) {
     return result;
 }
 
-double matrix_sum(Matrix m) {
+// double matrix_sum(Matrix m) {
+//     // Проверка на пустую матрицу
+//     if (m.data == nullptr || m.rows <= 0 || m.cols <= 0) {
+//         return 0.0;
+//     }
+//     double sum = 0.0;
+//     // Суммируем все элементы матрицы
+//     for (int i = 0; i < m.rows; i++) {
+//         for (int j = 0; j < m.cols; j++) {
+//             sum += m.data[i][j];
+//         }
+//     }
+//     return sum;
+// }
+
+double matrix_trace(Matrix m) {
     // Проверка на пустую матрицу
     if (m.data == nullptr || m.rows <= 0 || m.cols <= 0) {
         return 0.0;
     }
-    double sum = 0.0;
-    // Суммируем все элементы матрицы
-    for (int i = 0; i < m.rows; i++) {
-        for (int j = 0; j < m.cols; j++) {
-            sum += m.data[i][j];
-        }
+
+    double trace = 0.0;
+    // Суммируем элементы главной диагонали
+    int min_dim = m.rows < m.cols ? m.rows : m.cols;
+    for (int i = 0; i < min_dim; i++) {
+        trace += m.data[i][i];
     }
-    return sum;
+    return trace;
 }
